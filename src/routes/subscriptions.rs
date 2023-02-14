@@ -1,4 +1,4 @@
-use actix_web::{post, HttpResponse, web};
+use actix_web::{post, web, HttpResponse};
 use chrono::Utc;
 use sqlx::PgPool;
 use uuid::Uuid;
@@ -21,8 +21,8 @@ pub(crate) async fn subscribe(form: web::Form<FormData>, pool: web::Data<PgPool>
         form.name,
         Utc::now(),
     )
-        .execute(pool.get_ref())
-        .await
+    .execute(pool.get_ref())
+    .await
     {
         Ok(_) => HttpResponse::Ok().finish(),
         Err(e) => {
