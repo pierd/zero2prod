@@ -44,6 +44,7 @@ jobs:
         id: cache-sqlx
         with:
           path: |
+            ~/.cargo/bin/cargo-sqlx
             ~/.cargo/bin/sqlx
           key: ${{ runner.os }}-sqlx-${{ env.SQLX_VERSION }}
 
@@ -117,6 +118,7 @@ jobs:
         id: cache-sqlx
         with:
           path: |
+            ~/.cargo/bin/cargo-sqlx
             ~/.cargo/bin/sqlx
           key: ${{ runner.os }}-sqlx-${{ env.SQLX_VERSION }}
 
@@ -171,6 +173,7 @@ jobs:
         id: cache-sqlx
         with:
           path: |
+            ~/.cargo/bin/cargo-sqlx
             ~/.cargo/bin/sqlx
           key: ${{ runner.os }}-sqlx-${{ env.SQLX_VERSION }}
 
