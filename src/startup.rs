@@ -1,7 +1,7 @@
 use crate::{
     configuration::{DatabaseSettings, Settings},
     email_client::EmailClient,
-    routes::{confirm, health_check, subscribe},
+    routes::{confirm, health_check, publish_newsletter, subscribe},
 };
 use actix_web::{dev::Server, web, App, HttpServer};
 use sqlx::{postgres::PgPoolOptions, PgPool};
@@ -73,6 +73,7 @@ fn run(
         App::new()
             .wrap(TracingLogger::default())
             .service(health_check)
+            .service(publish_newsletter)
             .service(subscribe)
             .service(confirm)
             .app_data(db_pool.clone())
