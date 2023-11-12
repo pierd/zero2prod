@@ -3,7 +3,7 @@ use crate::{
     email_client::EmailClient,
     routes::{
         admin_dashboard, change_password, change_password_form, confirm, health_check, home,
-        log_out, login_form, process_login, publish_newsletter, subscribe,
+        log_out, login_form, process_login, publish_newsletter, publish_newsletter_form, subscribe,
     },
 };
 use actix_session::{storage::RedisSessionStore, SessionMiddleware};
@@ -22,17 +22,7 @@ pub struct Application {
 impl Application {
     pub async fn build(configuration: Settings) -> Result<Self, anyhow::Error> {
         let connection_pool = get_connection_pool(&configuration.database);
-        let sender_email = configuration
-            .email_client
-            .sender()
-            .expect("Invalid sender email address.");
-        let timeout = configuration.email_client.timeout();
-        let email_client = EmailClient::new(
-            configuration.email_client.base_url,
-            sender_email,
-            configuration.email_client.authorization_token,
-            timeout,
-        );
+        let email_client = configuration.email_client.client();
         let address = format!(
             "{}:{}",
             configuration.application.host, configuration.application.port
@@ -97,6 +87,7 @@ async fn run(
             .service(change_password_form)
             .service(health_check)
             .service(publish_newsletter)
+            .service(publish_newsletter_form)
             .service(subscribe)
             .service(confirm)
             .service(home)

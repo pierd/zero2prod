@@ -10,6 +10,5 @@ pub use admin::*;
 pub use homepage::*;
 pub use internal::*;
 pub use login::*;
-pub use newsletter::*;
 pub use subscriptions::*;
 pub use subscriptions_confirm::*;

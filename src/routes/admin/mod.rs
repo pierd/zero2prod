@@ -1,11 +1,13 @@
 mod dashboard;
 mod logout;
+mod newsletter;
 mod password;
 
 use actix_web::error::InternalError;
 use anyhow::Context;
 pub use dashboard::admin_dashboard;
 pub use logout::log_out;
+pub use newsletter::{publish_newsletter, publish_newsletter_form};
 pub use password::{change_password, change_password_form};
 use uuid::Uuid;
 
