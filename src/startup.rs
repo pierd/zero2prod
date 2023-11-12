@@ -2,8 +2,8 @@ use crate::{
     configuration::{DatabaseSettings, Settings},
     email_client::EmailClient,
     routes::{
-        admin_dashboard, confirm, health_check, home, login_form, process_login,
-        publish_newsletter, subscribe,
+        admin_dashboard, change_password, change_password_form, confirm, health_check, home,
+        log_out, login_form, process_login, publish_newsletter, subscribe,
     },
 };
 use actix_session::{storage::RedisSessionStore, SessionMiddleware};
@@ -93,11 +93,14 @@ async fn run(
             ))
             .wrap(TracingLogger::default())
             .service(admin_dashboard)
+            .service(change_password)
+            .service(change_password_form)
             .service(health_check)
             .service(publish_newsletter)
             .service(subscribe)
             .service(confirm)
             .service(home)
+            .service(log_out)
             .service(login_form)
             .service(process_login)
             .app_data(db_pool.clone())
